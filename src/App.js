@@ -1,4 +1,5 @@
 import Expenses from "./components/Expense/Expenses";
+import ExpenseCreator from "./components/ExpenseCreator/ExpenseCreator";
 
 function App() {
     const expenses = [
@@ -24,8 +25,14 @@ function App() {
         }
     ]
 
+    function addNewExpense(expense) {
+        expenses.push(expense);
+        console.log(expenses);
+    }
+
     return (
         <header className="App-header">
+            <ExpenseCreator addNewExpense={addNewExpense} />
             <Expenses expenses={expenses} />
         </header>
     );
