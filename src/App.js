@@ -1,39 +1,43 @@
 import Expenses from "./components/Expense/Expenses";
 import ExpenseCreator from "./components/ExpenseCreator/ExpenseCreator";
+import {useState} from "react";
 
 function App() {
-    const expenses = [
-        {
-            title: 'Lego toy',
-            amount: 15.94,
-            date: new Date(2022, 7, 12, 15, 7)
-        },
-        {
-            title: 'Break',
-            amount: 1.94,
-            date: new Date(2022, 7, 12, 16, 23)
-        },
-        {
-            title: 'Bus ticket',
-            amount: 0.5,
-            date: new Date(2022, 7, 12, 16, 50)
-        },
-        {
-            title: 'YouTube Subscribe',
-            amount: 9.99,
-            date: new Date(2022, 7, 12, 23, 41)
-        }
-    ]
+
+    const [expenses, setExpenses] = useState([])
+    const [filteredExpenses, setFilteredExpenses] = useState([]);
+    const [years, setYears] = useState([]);
 
     function addNewExpense(expense) {
-        expenses.push(expense);
-        console.log(expenses);
+        setExpenses(prevState => [expense, ...prevState]);
+
+        const expenseYear = expense.date.getFullYear()
+        const wasAdded = years.findIndex(year => expenseYear === year) === -1;
+        if (wasAdded) {
+            setYears(prevState => [...prevState, expenseYear].sort((a, b) => b - a))
+        }
+    }
+
+    function applyFilter(year) {
+        if (year === null) {
+            setFilteredExpenses([]);
+        } else {
+            setFilteredExpenses(expenses.filter(expense => {
+                const expenseDate = expense.date.getFullYear();
+                return year === expenseDate;
+            }));
+        }
+    }
+
+    const filterProps = {
+        filter: applyFilter,
+        years: years,
     }
 
     return (
         <header className="App-header">
-            <ExpenseCreator addNewExpense={addNewExpense} />
-            <Expenses expenses={expenses} />
+            <ExpenseCreator addNewExpense={addNewExpense}/>
+            <Expenses filter={filterProps} expenses={filteredExpenses.length ? filteredExpenses : expenses}/>
         </header>
     );
 }

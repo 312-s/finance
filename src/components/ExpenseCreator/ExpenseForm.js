@@ -7,6 +7,7 @@ export default function ExpenseForm(props) {
         event.preventDefault();
 
         const fieldsData = Object.fromEntries(new FormData(event.target).entries());
+        fieldsData.date = new Date(fieldsData.date);
 
         props.addNewExpense(fieldsData);
     }
