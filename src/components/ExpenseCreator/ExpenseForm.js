@@ -10,6 +10,7 @@ export default function ExpenseForm(props) {
         fieldsData.date = new Date(fieldsData.date);
 
         props.addNewExpense(fieldsData);
+        props.closeForm();
     }
 
     return <div><form onSubmit={getFormExpense}>
@@ -28,6 +29,7 @@ export default function ExpenseForm(props) {
             </div>
         </div>
         <div className="expense-form__actions">
+            <button onClick={props.closeForm}>Cancel</button>
             <button type="submit">Add</button>
         </div>
     </form></div>
