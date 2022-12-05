@@ -2,6 +2,7 @@ import './Expenses.css'
 import ExpenseItem from "./ExpenseItem";
 import Card from "../Card";
 import YearFilter from "../Filter/YearFilter";
+import Chart from "../Chart/Chart";
 
 
 function Expenses(props) {
@@ -14,6 +15,7 @@ function Expenses(props) {
     return (
         <Card className="expenses">
             <YearFilter filter={props.filter} />
+            <Chart expenses={expenses}/>
             {expenses.map(createExpenseItem)}
         </Card>
     )
