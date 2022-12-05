@@ -1,5 +1,6 @@
 import Expenses from "./components/Expense/Expenses";
 import ExpenseCreator from "./components/ExpenseCreator/ExpenseCreator";
+import Chart from "./components/Chart/Chart";
 import {useState} from "react";
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
     return (
         <header className="App-header">
             <ExpenseCreator addNewExpense={addNewExpense}/>
+            <Chart expenses={filteredExpenses.length ? filteredExpenses : expenses}/>
             <Expenses filter={filterProps} expenses={filteredExpenses.length ? filteredExpenses : expenses}/>
         </header>
     );
