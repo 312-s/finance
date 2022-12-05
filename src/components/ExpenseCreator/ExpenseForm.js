@@ -1,15 +1,14 @@
 import React from "react";
-
+import Expense from "../../models/Expense";
 import "./ExpenseForm.css"
 
 export default function ExpenseForm(props) {
     function getFormExpense(event) {
         event.preventDefault();
 
-        const fieldsData = Object.fromEntries(new FormData(event.target).entries());
-        fieldsData.date = new Date(fieldsData.date);
+        const fieldsData = new FormData(event.target);
+        props.addNewExpense(new Expense(fieldsData.get('title'), fieldsData.get('amount'), fieldsData.get('date')));
 
-        props.addNewExpense(fieldsData);
         props.closeForm();
     }
 
@@ -21,7 +20,7 @@ export default function ExpenseForm(props) {
             </div>
             <div className="expense-form__control">
                 <label>Amount</label>
-                <input required type="number" name="amount" min="0.01" step="0.01"/>
+                <input required type="number" name="amount" min="0.01" step="1"/>
             </div>
             <div className="expense-form__control">
                 <label>Date</label>
