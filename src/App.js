@@ -8,14 +8,17 @@ function App() {
     const [filteredExpenses, setFilteredExpenses] = useState([]);
     const [years, setYears] = useState([]);
 
-    function addNewExpense(expense) {
-        setExpenses(prevState => [expense, ...prevState]);
-
-        const expenseYear = expense.date.getFullYear()
+    function updateYearsList(expenseYear) {
         const wasAdded = years.findIndex(year => expenseYear === year) === -1;
         if (wasAdded) {
             setYears(prevState => [...prevState, expenseYear].sort((a, b) => b - a))
         }
+    }
+
+    function addNewExpense(expense) {
+        setExpenses(prevState => [expense, ...prevState]);
+
+        updateYearsList(expense.date.getFullYear());
     }
 
     function applyFilter(year) {

@@ -18,14 +18,26 @@ export default class Expense {
         this.#date = this.#serializeDateString(date);
     }
 
+    /**
+     * Get the title of the expense
+     * @return {String}
+     */
     get title() {
         return this.#title;
     }
 
+    /**
+     * Get the amount of the expense
+     * @return {Number}
+     */
     get amount() {
         return this.#amount;
     }
 
+    /**
+     * Get the date of the expense
+     * @return {Date}
+     */
     get date() {
         return this.#date;
     }
